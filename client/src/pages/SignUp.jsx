@@ -14,25 +14,17 @@ function SignUp() {
   } = useForm();
   const onSubmit = async (data) => {
     toast.promise(
-      new Promise((resolve, reject) => {
-        AuthService.signUp(data).then((res) => {
-          if (res.statusCode === 400) {
-            reject(res);
-          } else resolve(res);
-        });
-      }),
-      {
-        loading: "Creating account...",
-        success: (res) => {
-          navigate("/login");
-          return res.message;
-        },
-        error: (err) => {
-          return err.message;
-        },
-      }
-    );
-  };
+        AuthService.signUp(data),
+        {
+            loading: 'Signing up...',
+            success: (data) => {
+                navigate('/login');
+                return data.message;
+            },
+            error: err => err.message
+        }
+    )
+  }
 
   const password = watch("password");
   return (
@@ -49,7 +41,7 @@ function SignUp() {
             >
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Full Name

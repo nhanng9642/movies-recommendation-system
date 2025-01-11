@@ -14,28 +14,19 @@ function Login() {
 
   const onSubmit = async (data) => {
     toast.promise(
-      new Promise(async (resolve, reject) => {
-        const res = await AuthService.signIn(data);
-        if (res.access_token) {
-          resolve(res);
-        } else {
-          reject(res);
+        AuthService.signIn(data),
+        {
+            loading: 'Signing in...',
+            success: (res) => {
+              localStorage.setItem("token", res.access_token);
+              dispatch({ type: "LOG_IN", payload: { user: res.user } });
+              return "Sign in success";
+            },
+            error: err => err.message
         }
-      }),
-      {
-        loading: "Signing in...",
-        success: (res) => {
-          localStorage.setItem("token", res.access_token);
-          dispatch({ type: "LOG_IN", payload: { user: res.user } });
-          return "Sign in success";
-        },
-        error: (error) => {
-          return error.message;
-        },
-      }
-    );
-  };
-
+    )
+  }
+  
   return (
     <section className=" dark min-h-screen bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

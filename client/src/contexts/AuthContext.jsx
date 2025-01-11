@@ -44,12 +44,12 @@ export function AuthProvider({ children }) {
     }
     async function fetchUser() {
       const response = await AuthService.getProfile();
-      if (response.statusCode == 200) {
+      try {
         dispatch({
           type: "INIT",
           payload: { user: response.user, isAuth: true },
         });
-      } else {
+      } catch {
         dispatch({ type: "INIT", payload: { user: null, isAuth: false } });
       }
     }
