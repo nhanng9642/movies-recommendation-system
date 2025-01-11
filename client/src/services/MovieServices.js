@@ -1,5 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL;
-const movieUrl = `${API_URL}/api/v1/movie`;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const movieUrl = `${API_URL}/movies`;
 
 export async function searchMovies(queryString) {
   const query = queryString.toString();
