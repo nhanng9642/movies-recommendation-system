@@ -1,18 +1,14 @@
-import { Typography, Button, Avatar } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import logo from "../assets/logo.svg";
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { ProfileMenu } from "./ProfileMenu";
 
 export default function Header() {
-  const { user, dispatch } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
-  const handleLogOut = () => {
-    localStorage.removeItem("token");
-    dispatch({ type: "LOG_OUT" });
-    navigate("/login");
-  };
 
   const [query, setQuery] = useState('');
   const handleSearch = () => {
@@ -22,7 +18,7 @@ export default function Header() {
   return (
     <header className="bg-[#082f49] h-[60px]  flex items-center justify-between p-4 px-10">
       <div className="text-white text-lg font-semibold">
-        <Link to="/">
+        <Link to="">
           <img src={logo} alt="" className="h-5 w-auto" />
         </Link>
       </div>
@@ -49,24 +45,9 @@ export default function Header() {
         </div>
 
 
-        {user && (
-          <div className="flex gap-3 items-center">
-            <Typography color="white">
-              <span className="font-bold">{user?.name}</span>
-            </Typography>
-            <Link to="/profile">
-              <Avatar
-                src="https://docs.material-tailwind.com/img/face-2.jpg"
-                alt="avatar"
-              />
-            </Link>
-            <Button onClick={handleLogOut} className="bg-red-400">
-              Log Out
-            </Button>
-          </div>
-        )}
+        { user && <ProfileMenu /> }
 
-        {!user && (
+        { !user && (
           <Link to="/login">
             <Button>Login</Button>
           </Link>

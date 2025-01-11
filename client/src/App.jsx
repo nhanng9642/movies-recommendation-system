@@ -12,6 +12,7 @@ import ProtectRoute from "./utils/ProtectRoute";
 import MovieDetail from "./pages/MovieDetail.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import VerifyEmail from "./pages/VerifyEmail.jsx";
 
 function App() {
   return (
@@ -66,6 +67,15 @@ function App() {
             <GuestRoute>
               <ResetPassword />
             </GuestRoute>
+          }
+        />
+
+        <Route
+          path="/verify-account"
+          element={
+            <ProtectRoute>
+              <VerifyEmail />
+            </ProtectRoute>
           }
         />
 

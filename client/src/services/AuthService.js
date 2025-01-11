@@ -13,6 +13,12 @@ export const forgotPassword = async (data) => fetchData(`${API_URL}/auth/forgot-
 export const resetPassword = async (token, data) => 
   fetchData(`${API_URL}/auth/reset-password?token=${token}`, "POST", data);
 
+export const sendVerifyEmail = async (email) => 
+  fetchData(`${API_URL}/auth/verify-account`, "POST", {email});
+
+export const verifyEmail = async (token) => 
+  fetchData(`${API_URL}/auth/verify-account?token=${token}`);
+
 export function logInWithGoogle() {
     window.location.href = `${API_URL}/auth/google/login`;
 }
