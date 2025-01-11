@@ -10,6 +10,8 @@ import SearchResult from "./pages/SearchResult";
 import { PageNotFound } from "./pages/PageNotFound";
 import ProtectRoute from "./utils/ProtectRoute";
 import MovieDetail from "./pages/MovieDetail.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
+import ResetPassword from "./pages/ResetPassword.jsx";
 
 function App() {
   return (
@@ -48,6 +50,25 @@ function App() {
             </GuestRoute>
           }
         />
+
+        <Route
+          path="/forgot-password"
+          element={
+            <GuestRoute>
+              <ForgotPassword />
+            </GuestRoute>
+          }
+        />
+
+        <Route
+          path="/reset-password"
+          element={
+            <GuestRoute>
+              <ResetPassword />
+            </GuestRoute>
+          }
+        />
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Toaster position="top-center" />

@@ -36,7 +36,7 @@ function Login() {
               Sign In To Your Account
             </h1>
             <form
-              className="space-y-4 md:space-y-6"
+              className=""
               onSubmit={handleSubmit(onSubmit)}
             >
               <div>
@@ -56,7 +56,7 @@ function Login() {
                   required
                 />
               </div>
-              <div>
+              <div className="mt-4 md:mt-6">
                 <label
                   htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -87,20 +87,26 @@ function Login() {
               <button
                 disabled={isSubmitting}
                 type="submit"
-                className="w-full text-white bg-blue-400 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="mt-4 md:mt-6 w-full text-white bg-blue-400 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Sign In
               </button>
 
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                Don’t have an account yet?{" "}
+              <div className="mt-1 md:mt-2 flex justify-between text-sm font-light text-gray-500 dark:text-gray-400">
                 <Link
                   to={"/sign-up"}
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  className="font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
                 >
                   Sign up
                 </Link>
-              </p>
+                <Link
+                  to={"/forgot-password"}
+                  className="font-medium text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+
             </form>
             <hr className="my-2 border-gray-200 dark:border-gray-700" />
             <div className="px-6 sm:px-0 max-w-sm">

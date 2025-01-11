@@ -8,6 +8,11 @@ export const signIn = async (data) => fetchData(`${API_URL}/auth/login`, "POST",
 
 export const getProfile = async () => fetchDataWithToken(`${API_URL}/users/profile`);
 
+export const forgotPassword = async (data) => fetchData(`${API_URL}/auth/forgot-password`, "POST", data);
+
+export const resetPassword = async (token, data) => 
+  fetchData(`${API_URL}/auth/reset-password?token=${token}`, "POST", data);
+
 export function logInWithGoogle() {
     window.location.href = `${API_URL}/auth/google/login`;
 }
