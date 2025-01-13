@@ -5,7 +5,11 @@ const movieUrl = `${API_URL}/movies`;
 
 export const searchMovies = async (queryString) => fetchData(`${movieUrl}/search?${queryString}`);
 
-export const getTrendingMovies = async (day = 'day') => fetchData(`${movieUrl}/trending/${day}`);
+export const getTrendingMovies = async (day = 'day') => 
+  fetchData(`${movieUrl}/trending/${day}`);
+
+export const getPopularMovies = async () => 
+  fetchData(`${movieUrl}?page=1&limit=14&sort=-popularity`);
 
 export const getMovieDetail = async (movieId) => fetchData(`${movieUrl}/${movieId}`);
 

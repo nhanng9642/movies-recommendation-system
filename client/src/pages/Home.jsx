@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { TrendingMovies } from "../components/TrendingMovies";
+import { TrendingMovies } from "../components/MovieList/TrendingMovies";
 import { Banner } from "../components/Banner";
+import { PopularMovies } from "../components/MovieList/PopularMovies";
 
 export default function Home() {
   const { search } = useLocation();
@@ -20,6 +21,7 @@ export default function Home() {
     <div>
       <Banner />
       <TrendingMovies  />
+      <PopularMovies />
     </div>
   );
 }
