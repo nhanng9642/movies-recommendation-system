@@ -1,9 +1,12 @@
-import { fetchData } from "./utils";
+import { convertQuery, fetchData } from "./utils";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const movieUrl = `${API_URL}/movies`;
 
-export const searchMovies = async (queryString) => fetchData(`${movieUrl}/search?${queryString}`);
+export const searchMovies = async (query) =>{
+  const queryString = convertQuery(query);
+  return fetchData(`${movieUrl}?${queryString}`);
+}
 
 export const getTrendingMovies = async (day = 'day') => 
   fetchData(`${movieUrl}/trending/${day}`);

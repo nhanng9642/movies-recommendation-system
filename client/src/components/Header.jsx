@@ -12,7 +12,7 @@ export default function Header() {
 
   const [query, setQuery] = useState('');
   const handleSearch = () => {
-    navigate(`/search?query=${query}`);
+    navigate(`/search?q=${query}`);
     setQuery('');
   }
   return (
