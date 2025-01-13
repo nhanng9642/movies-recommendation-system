@@ -36,6 +36,7 @@ export function AuthProvider({ children }) {
     isAuth: false,
     isInitialize: false,
   });
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -45,11 +46,13 @@ export function AuthProvider({ children }) {
     async function fetchUser() {
       const response = await AuthService.getProfile();
       try {
+        
         dispatch({
           type: "INIT",
           payload: { user: response.user, isAuth: true },
         });
       } catch {
+        localStorage.removeItem("token");
         dispatch({ type: "INIT", payload: { user: null, isAuth: false } });
       }
     }
