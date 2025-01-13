@@ -15,7 +15,7 @@ export default function MovieDetail() {
   useEffect(() => {
     const getMovie = async () => {
       let promise = getMovieDetail(id);
-      promise.then((data) => setMovie(data));
+      promise.then((data) => setMovie(data.data));
     };
 
     const getCredits = async () => {
