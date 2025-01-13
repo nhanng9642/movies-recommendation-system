@@ -5,22 +5,25 @@ import {CircularProgressBar} from "../components/CircleProgessBar.jsx";
 import {ListButton, HeartButton, BookmarkButton} from "../components/MovieButton"
 import Loading from "../components/Loading.jsx";
 import { PageNotFound } from "./PageNotFound.jsx";
+import { Castcard } from "../components/CastCard.jsx";
+import { Typography } from "@material-tailwind/react";
 
 export default function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const [filteredCrews, setFilteredCrews] = useState([]);
   const importantJob = ["Screenplay", "Director", "Creator", "Writer", "Characters", "Story"]
-
+  
   useEffect(() => {
-    const getMovie = async () => {
-      let promise = getMovieDetail(id);
-      promise.then((data) => setMovie(data));
+    const fetchMovie = async () => {
+      const { data } = await getMovieDetail(id);
+      setMovie(data);
     };
 
     const getCredits = async () => {
-      let promise = getCreditsFromMovieId(id);
-      promise.then((data) => {
+      let data = await getCreditsFromMovieId(id);
+      console.log(data);
+      
+      data.then((data) => {
         if (!data.crew) return;
 
         let allCrews = data.crew
@@ -46,16 +49,14 @@ export default function MovieDetail() {
         setFilteredCrews(result);
       });
     }
-    getMovie();
+    fetchMovie();
     getCredits();
   }, [id]);
 
   if (!movie) return <Loading />;
 
-  if (movie.success === false) 
-    return <PageNotFound />;
-
   return (
+    <>
     <div
       className="w-full bg-cover bg-center justify-center flex-wrap"
       style={{
@@ -88,7 +89,7 @@ export default function MovieDetail() {
             </h2>
             <div>
               <span>
-                {`${movie.release_date} (${movie.origin_country.join(', ')})`}
+                {`${movie.release_date} (${movie.origin_country?.join(', ')})`}
               </span>
               <span className="separator mx-[8px]">•</span>
               <span>
@@ -162,17 +163,26 @@ export default function MovieDetail() {
             <p className="leading-6">
               {movie.overview}
             </p>
-            <ol className="people flex mt-[20px] list-none list-inside justify-start flex-wrap">
-              {filteredCrews.map((person, index) => (
-                <li key={index} className="profile w-1/3 basis-1/3 text-left mb-3.5 mr-0 box-border pr-5">
-                  <p className="font-bold">{person.name}</p>
-                  <p>{person.jobs.join(', ')}</p>
-                </li>
-              ))}
-            </ol>
+
           </div>
         </div>
       </div>
+
     </div>
+
+    <div className="mt-2 ml-4">
+      <Typography variant="h4" className="text-gray-800 font-bold">
+        Acting list
+      </Typography>
+      <div className="flex flex-wrap mt-1 gap-4 justify-center">
+        {movie?.credits.cast.map((cast) => (
+          <div className="w-1/6 p-2" key={cast.id}>
+            <Castcard cast={cast} />
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    </>
   );
 }

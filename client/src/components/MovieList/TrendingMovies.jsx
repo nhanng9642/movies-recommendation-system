@@ -11,13 +11,15 @@ export function TrendingMovies() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-      setLoading(true);
-      const movies = getTrendingMovies(activeTab.value);
-      movies.then((data) => {
-          setMovies(data.results.slice(0, 14));
-          setLoading(false);
-      });
-  }, [activeTab]);
+    setLoading(true);
+    const fetchData = async() => {
+      const {data} = await getTrendingMovies(activeTab.value);
+      setMovies(data.data)
+      setLoading(false);
+    }
+    fetchData();
+    
+}, [activeTab]);
 
   return (
     <div className="mx-4 my-4">

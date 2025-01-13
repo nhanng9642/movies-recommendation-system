@@ -10,7 +10,7 @@ export function MovieList( {movies, loading}) {
         {!loading && <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
             {movies.map((movie) => (
                 <div key={movie.id} className="m-[6px] group">
-                    <Link to={`/movie/${movie.id}`}>
+                    <Link to={`/movie/${movie._id}`}>
                         <div className="relative rounded-lg border border-gray-300">
                             <div className="aspect-w-2 aspect-h-3">
                                 <img
