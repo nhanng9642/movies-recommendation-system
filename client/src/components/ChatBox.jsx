@@ -48,7 +48,7 @@ export const ChatBox = () => {
 
   const handleGetRetriver = async (query) => {
     const data = await getRetriver(query);
-    const uuid = Math.random().toString(36).substring(9);
+    const uuid = Math.random().toString(36).substring(2);
     return {
       text: `AI search for "${query}"`,
       data,
@@ -58,7 +58,7 @@ export const ChatBox = () => {
   };
 
   const handleGetNavigation = async (query) => {
-    const uuid = Math.random().toString(36).substring(9);
+    const uuid = Math.random().toString(36).substring(2);
     const response = await getNavigation(query);
     console.log(response);
     
