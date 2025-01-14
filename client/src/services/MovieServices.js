@@ -17,6 +17,9 @@ export const getTrendingMovies = async (day = 'day') => {
 export const getPopularMovies = async () => 
   fetchData(`${movieUrl}?page=1&limit=14&sort=-popularity`);
 
+export const getLastestMovies = async (limit = 6) => 
+  fetchData(`${movieUrl}?page=1&limit=${limit}&sort=-release_date&release_date[lte]=2024-10-9`);
+
 export const getMovieDetail = async (movieId) => fetchData(`${movieUrl}/${movieId}`);
 
 export const getCreditsFromMovieId = async (movieId) => fetchData(`${movieUrl}/${movieId}/credits`);
