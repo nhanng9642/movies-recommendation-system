@@ -13,6 +13,7 @@ import MovieDetail from "./pages/MovieDetail.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
+import { RecommendationMovieList } from "./pages/RecommendationMovieList.jsx";
 
 function App() {
   return (
@@ -33,6 +34,8 @@ function App() {
                     </ProtectRoute>
                 }
           />
+        <Route path="/ai-search/movie/:id" element={<RecommendationMovieList />} />
+
         </Route>
 
         <Route
@@ -78,6 +81,7 @@ function App() {
             </ProtectRoute>
           }
         />
+
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

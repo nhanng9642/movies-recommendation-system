@@ -1,8 +1,12 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+
+const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE;
 
 const MovieCard = ({ movie }) => {
   const { title, poster_path, release_date, overview } = movie;
-  const poster = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : 'movie.jpg';
+  const poster = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : defaultMovieImage;
+  console.log(poster);
+  
   return (
     <div className="max-w-sm h-full rounded overflow-hidden shadow-lg bg-white">
       <img className="w-full " src={poster} alt={title} />

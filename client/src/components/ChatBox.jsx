@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { getNavigation, getRetriver } from "../services/RecommendationService";
 import Loading from "./Loading";
 
+const MAX_MESSAGES = 7;
 export const ChatBox = () => {
   const [open, setOpen] = useState(false);
   const [command, setCommand] = useState("/search"); 
@@ -17,21 +19,78 @@ export const ChatBox = () => {
     setInputValue(e.target.value);
   };
 
+  const [messages, setMessages] = useState([{ text: "Hello", link: "message" }]);
+  
+  useEffect(() => {
+    const messageData = JSON.parse(localStorage.getItem("messages")) || [];
+    setMessages(messageData);
+  }, []);
+
   const onSubmit = async (query) => {
-    console.log(query);
-    
     if (!query) return;
     let func = null;
     if (command === "/search") {
-      func = getRetriver;
+      func = handleGetRetriver;
     } else if (command === "/navigate") {
-      func = getNavigation;
+      func = handleGetNavigation;
     }
+
     setIsLoading(true);
-    const data = await func(query);
+    const message = await func(query);
+    const newMessages = messages.length >= MAX_MESSAGES ? messages.slice(1, MAX_MESSAGES) : [...messages];
+    newMessages.push(message);
+    setMessages(newMessages);
+    localStorage.setItem("messages", JSON.stringify(newMessages));
     setIsLoading(false);
-    console.log(data);
+    setInputValue("");
+    inputRef.current.focus();
   }
+
+  const handleGetRetriver = async (query) => {
+    const data = await getRetriver(query);
+    const uuid = Math.random().toString(36).substring(9);
+    return {
+      text: `AI search for "${query}"`,
+      data,
+      id: uuid,
+      link: `ai-search/movie/${uuid}`,
+    };
+  };
+
+  const handleGetNavigation = async (query) => {
+    const uuid = Math.random().toString(36).substring(9);
+    const response = await getNavigation(query);
+    console.log(response);
+    
+    let text = `AI navigate for "${query}"`;
+    let link = null;
+    const route = response?.data?.route;
+
+    if (route == "NONE" || response.status == 500){
+      text = `Can't navigate for "${query}"`;
+      link = null;
+    } else if (route == "SEARCH_PAGE") {
+      const keyword = response?.data?.params?.keyword;
+      link = `search?q=${keyword}`;
+    } else if (route == "HOME_PAGE") {
+      link = "/";
+    } else if (route == "PROFILE_PAGE") {
+      link = `/profile`;
+    } else if (route == "MOVIE_PAGE") {
+      link = `/ai-search/movie/${uuid}`;
+    } else if (route == "CAST_PAGE") {
+      link = `/ai-search/cast/${uuid}`;
+    } else if (route == "GENRE_PAGE") {
+      link = `/ai-search/genre/${uuid}`;
+    }
+
+    return {
+      text,
+      link,
+      data: response,
+      id: uuid,
+    };;
+  };
 
   return (
     <>
@@ -74,7 +133,24 @@ export const ChatBox = () => {
               >
                 Navigate
               </button>
+
             </div>
+            <div className="mt-2">
+              {messages.map((message, index) => (
+                <div key={index} className="">
+                  {message.link && (
+                    <Link
+                      to={message.link}
+                      className="text-blue-500 hover:underline leading-5"
+                    >{message.text}
+                    </Link>)}
+                  {!message.link && (
+                    <div className="text-gray-500">{message.text}</div>
+                  )}
+                </div>))
+              }
+            </div>
+            
             {isLoading && <Loading />}
           </div>
 
@@ -98,8 +174,10 @@ export const ChatBox = () => {
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyDown={(e) => {
-                  e.key === "Enter" && onSubmit(`${command} ${inputValue}`);
-                }}
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    onSubmit(`${inputValue}`);
+                }}}
                 autoFocus
                 rows={1}
               />

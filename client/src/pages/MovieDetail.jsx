@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import {Link, useParams} from "react-router-dom";
-import {getCreditsFromMovieId, getMovieDetail} from "../services/MovieServices.js";
+import { getMovieDetail} from "../services/MovieServices.js";
 import {CircularProgressBar} from "../components/CircleProgessBar.jsx";
 import {ListButton, HeartButton, BookmarkButton} from "../components/MovieButton"
 import Loading from "../components/Loading.jsx";
-import { PageNotFound } from "./PageNotFound.jsx";
 import { Castcard } from "../components/CastCard.jsx";
 import { Typography } from "@material-tailwind/react";
+
+const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE;
 
 export default function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  const importantJob = ["Screenplay", "Director", "Creator", "Writer", "Characters", "Story"]
+  console.log(movie);
   
   useEffect(() => {
     const fetchMovie = async () => {
@@ -19,39 +20,9 @@ export default function MovieDetail() {
       setMovie(data);
     };
 
-    const getCredits = async () => {
-      let data = await getCreditsFromMovieId(id);
-      console.log(data);
-      
-      data.then((data) => {
-        if (!data.crew) return;
-
-        let allCrews = data.crew
-        let groupedCrews = allCrews?.reduce((acc, member) => {
-          if (!acc[member.name]) {
-            acc[member.name] = {
-              name: member.name,
-              jobs: []
-            };
-          }
-
-          if (!acc[member.name].jobs.includes(member.job)) {
-            acc[member.name].jobs.push(member.job);
-          }
-
-          return acc;
-        }, {});
-
-        let result = Object.values(groupedCrews).filter(person =>
-          person.jobs.some(job => importantJob.includes(job))
-        );
-
-        setFilteredCrews(result);
-      });
-    }
     fetchMovie();
-    getCredits();
   }, [id]);
+
 
   if (!movie) return <Loading />;
 
@@ -74,8 +45,7 @@ export default function MovieDetail() {
       <div className="flex w-full px-[40px] py-[30px] max-w-[1400px] mx-auto">
         <div className="flex items-center min-w-[300px] w-[300px] h-[450px]">
           <img
-            src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`} // Poster phim
-            alt={movie.title}
+            src={movie.poster_path ? `https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}` : defaultMovieImage}
             className="w-full max-w-[400px] rounded-lg shadow-lg"
           />
         </div>
@@ -182,7 +152,6 @@ export default function MovieDetail() {
         ))}
       </div>
     </div>
-    
     </>
   );
 }
