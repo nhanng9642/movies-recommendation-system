@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { verifyEmail } from "../services/AuthService";
 import Loading from "../components/Loading";
+import { useAuth } from "../contexts/AuthContext";
 
 function VerifyEmail() {
   const { search } = useLocation();
@@ -10,6 +11,8 @@ function VerifyEmail() {
   const queryParams = new URLSearchParams(search);
   const token = queryParams.get("token");
   const navigate = useNavigate();
+
+  const { user, dispatch } = useAuth();
 
   useEffect(() => {
     toast.promise(      
@@ -21,6 +24,7 @@ function VerifyEmail() {
           },
           success: (res) => {
             setIsLoading(false);
+            dispatch( "UPDATE_USER", { user: { ...user, isVerified: true } });
             navigate('/')
             return res.message
           },

@@ -27,11 +27,9 @@ export function ReleaseDateFilter() {
 
       setParams(prevParams => {
           const newParams = new URLSearchParams(prevParams);
-          if (release_date_from === "") 
-            newParams.set("release_date_from", release_date_from);
+          newParams.set("release_date_from", release_date_from);
           
-          if (release_date_to === "")
-            newParams.set("release_date_to", release_date_to);
+          newParams.set("release_date_to", release_date_to);
           return newParams;
       });
   }

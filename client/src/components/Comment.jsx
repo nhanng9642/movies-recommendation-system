@@ -10,8 +10,6 @@ export function Comment( {moviedId, handleOpen}) {
   const [commentText, setCommentText] = useState("");
   const handleCommentChange = (e) => setCommentText(e.target.value);
   const { isAuth } = useAuth();
-
-  console.log(comments);
   
   const handleAddComment = () => {
     if (commentText.trim()) {
