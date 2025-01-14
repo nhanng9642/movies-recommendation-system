@@ -7,6 +7,8 @@ import Loading from "../components/Loading.jsx";
 import { Castcard } from "../components/CastCard.jsx";
 import { Typography } from "@material-tailwind/react";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
+import { MovieList } from "../components/MovieList/MovieList.jsx";
+import { getSimilarMovies } from "../services/RecommendationService.js";
 
 const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE || "/movies-recommendation-system/movie.jpg";
 
@@ -14,6 +16,9 @@ export default function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
+  const [errorSimilar, setErrorSimilar] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [similarMovies, setSimilarMovies] = useState([]);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -25,7 +30,22 @@ export default function MovieDetail() {
         setError(error);
       }
     }
+
+    const fetchSimilarMovies = async () => {
+      try {
+        setLoading(true);
+        const data = await getSimilarMovies(id);
+        console.log(data);
+        setSimilarMovies(data.slice(0, 7));
+        setLoading(false);
+      } catch (error) {
+        console.log(error.message);
+        setErrorSimilar(error);
+      }
+    }
+
     fetchMovie();
+    fetchSimilarMovies();
   }, [id]);
 
   if (!movie && !error) return <Loading />;
@@ -166,6 +186,15 @@ export default function MovieDetail() {
         </button>
         
       </div>
+    </div>
+
+    <div className="mt-2 ml-4">
+      <Typography variant="h4" className="text-gray-800 font-bold">
+        Similar Movies
+      </Typography>
+
+      <MovieList movies={similarMovies} loading={loading} />
+
     </div>
     </>
   );

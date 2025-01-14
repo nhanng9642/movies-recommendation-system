@@ -8,3 +8,6 @@ export const getRetriver = async (query) =>
 
 export const getNavigation = async (query) =>
   fetchData(`${URL}/navigation?query=${query}`);
+
+export const getSimilarMovies = async (title) => 
+  fetchData(`${URL}/retriever?query=similar with ${title}`);
