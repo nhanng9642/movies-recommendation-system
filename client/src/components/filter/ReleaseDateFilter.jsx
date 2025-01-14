@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 
 const initParams = (params) => {
-  const priceFrom = params.get("release_date_from") || 0;
-  const priceTo = params.get("release_date_to") || "";
+  const release_date_from = params.get("release_date_from") || "";
+  const release_date_to = params.get("release_date_to") || "";
 
-  return [priceFrom, priceTo];
+  return [release_date_from, release_date_to];
 }
 
 export function ReleaseDateFilter() {

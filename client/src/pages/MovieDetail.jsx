@@ -24,6 +24,10 @@ export default function MovieDetail() {
   const [loading, setLoading] = useState(true);
   const [similarMovies, setSimilarMovies] = useState([]);
 
+  const handleOpen = () => {
+    setOpen(old => !old);
+  }
+
   useEffect(() => {
     const fetchMovie = async () => {
       try {
@@ -127,7 +131,7 @@ export default function MovieDetail() {
                 <ListButton/>
               </li>
               <li className="py-[3px] mr-[20px]">
-                <HeartButton/>
+                <HeartButton handleOpen={handleOpen} movieId={movie._id}/>
               </li>
               <li className="py-[3px] mr-[20px]">
                 <BookmarkButton/>
@@ -195,14 +199,16 @@ export default function MovieDetail() {
       <Typography variant="h4" className="text-gray-800 font-bold">
         Similar Movies
       </Typography>
-
-      <MovieList movies={similarMovies} loading={loading} />
+      
+      {errorSimilar && <Typography variant="h5" className="mt-2 px-4">Error: {errorSimilar.message}</Typography>}
+      {!errorSimilar && <MovieList movies={similarMovies} loading={loading} />}
 
     </div>
 
-    <Comment moviedId={movie._id} handleOpen={setOpen}/>
+    <Comment moviedId={movie._id} handleOpen={handleOpen}/>
 
-    <NotificationRequestLogin open={open} handleOpen={setOpen} />
+    <NotificationRequestLogin open={open} handleOpen={handleOpen} 
+      redirect={`movie/${movie?._id}`} />
     </>
   );
 }

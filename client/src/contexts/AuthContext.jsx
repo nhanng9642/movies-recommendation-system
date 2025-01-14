@@ -44,9 +44,8 @@ export function AuthProvider({ children }) {
       return;
     }
     async function fetchUser() {
-      const response = await AuthService.getProfile();
       try {
-        
+        const response = await AuthService.getProfile();
         dispatch({
           type: "INIT",
           payload: { user: response.user, isAuth: true },

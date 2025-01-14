@@ -1,10 +1,16 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import * as AuthService from "../services/AuthService";
 import { useAuth } from "../contexts/AuthContext";
 import { Typography } from "@material-tailwind/react";
 function Login() {
+  const [param] = useSearchParams();
+  
+  const redirect = param.get("redirect");
+  console.log(redirect);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -20,6 +26,7 @@ function Login() {
             success: (res) => {
               localStorage.setItem("token", res.access_token);
               dispatch({ type: "LOG_IN", payload: { user: res.user } });
+              navigate("/" + (redirect ? redirect : ""));
               return "Sign in success";
             },
             error: err => err.message

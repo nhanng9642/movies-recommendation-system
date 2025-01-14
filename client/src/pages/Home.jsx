@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { TrendingMovies } from "../components/MovieList/TrendingMovies";
 import { Banner } from "../components/Banner";
@@ -7,16 +7,16 @@ import { PopularMovies } from "../components/MovieList/PopularMovies";
 import { LastestTrailers } from "../components/MovieList/LastestTrailers";
 
 export default function Home() {
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const token = queryParams.get("token");
+  const [params, setParams]= useSearchParams();
+  const token = params.get("token");
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const oldToken = localStorage.getItem("token");
-    if (!oldToken && token) {
+    if (token) {
       localStorage.setItem("token", token);
-      window.location.href = "/movies-recommendation-system/";
+      setParams({});
     }
-  }, [token]);
+  }, [navigate, setParams, token]);
 
   return (
     <div>

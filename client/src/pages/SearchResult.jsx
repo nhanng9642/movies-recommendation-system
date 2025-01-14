@@ -32,8 +32,6 @@ function SearchResult() {
     async function fetchMovies() {
       setIsLoading(true);
       const { data } = await MovieServices.searchMovies(queryParams);
-      console.log(data);
-      
       setIsLoading(false);
       setTotalPages(data.totalPages);
       setMovies(data.data);
