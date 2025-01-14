@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE;
+const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE || "/movies-recommendation-system/movie.jpg";
 
 const MovieCard = ({ movie }) => {
   const { title, poster_path, release_date, overview } = movie;

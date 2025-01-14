@@ -6,27 +6,33 @@ import {ListButton, HeartButton, BookmarkButton} from "../components/MovieButton
 import Loading from "../components/Loading.jsx";
 import { Castcard } from "../components/CastCard.jsx";
 import { Typography } from "@material-tailwind/react";
+import { ArrowRightIcon } from "@heroicons/react/20/solid";
 
-const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE;
+const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE || "/movies-recommendation-system/movie.jpg";
 
 export default function MovieDetail() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-  console.log(movie);
-  
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchMovie = async () => {
-      const { data } = await getMovieDetail(id);
-      setMovie(data);
-    };
-
+      try {
+        const { data } = await getMovieDetail(id);
+        setMovie(data);
+      } catch (error) {
+        console.log(error.message);
+        setError(error);
+      }
+    }
     fetchMovie();
   }, [id]);
 
+  if (!movie && !error) return <Loading />;
 
-  if (!movie) return <Loading />;
-
+  const topActorList = movie?.credits?.cast.length > 5 ? movie?.credits?.cast.slice(0, 5) : movie?.credits?.cast;
   return (
+    error ? <Typography variant="h4" className="mt-2 px-4">Movie Not found</Typography> :
     <>
     <div
       className="w-full bg-cover bg-center justify-center flex-wrap"
@@ -142,14 +148,20 @@ export default function MovieDetail() {
 
     <div className="mt-2 ml-4">
       <Typography variant="h4" className="text-gray-800 font-bold">
-        Acting list
+        Top Actor 
       </Typography>
       <div className="flex flex-wrap mt-1 gap-4 justify-center">
-        {movie?.credits.cast.map((cast) => (
+        {topActorList?.map((cast) => (
           <div className="w-1/6 p-2" key={cast.id}>
             <Castcard cast={cast} />
           </div>
         ))}
+        <button 
+          className="flex items-center text-blue-600 hover:underline font-medium"
+          onClick={() => {}} 
+        >
+          <ArrowRightIcon width={40} height={40}/>
+        </button>
       </div>
     </div>
     </>

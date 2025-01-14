@@ -7,7 +7,9 @@ function AppLayout() {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className="min-h-[440px]">
+        <Outlet />
+      </div>
       <Footer />
       <ChatBox />
     </div>

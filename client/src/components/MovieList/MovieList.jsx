@@ -5,7 +5,7 @@ import { CircularProgressBar } from "../CircleProgessBar";
 
 export function MovieList( {movies, loading}) {
   return (
-    <div className="mx-4 my-4">
+    <div className="mx-4 my-4 min-h-[600px]">
         {loading && <Loading />}
         {!loading && <div className="grid grid-cols-2 h-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
             {movies.map((movie) => (

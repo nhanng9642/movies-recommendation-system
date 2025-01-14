@@ -14,6 +14,7 @@ import ForgotPassword from "./pages/ForgotPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import VerifyEmail from "./pages/VerifyEmail.jsx";
 import { RecommendationMovieList } from "./pages/RecommendationMovieList.jsx";
+import { CastDetail } from "./pages/CastDetail.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         >
           <Route index element={<Home />} />
           <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="/cast/:id" element={<CastDetail />} />
           <Route path="/search" element={<SearchResult />} />
           <Route path="/profile" element={
                     <ProtectRoute>

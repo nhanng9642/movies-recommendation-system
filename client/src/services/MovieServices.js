@@ -20,3 +20,5 @@ export const getPopularMovies = async () =>
 export const getMovieDetail = async (movieId) => fetchData(`${movieUrl}/${movieId}`);
 
 export const getCreditsFromMovieId = async (movieId) => fetchData(`${movieUrl}/${movieId}/credits`);
+
+export const getCastDetail = async (castId) => fetchData(`${API_URL}/casts/${castId}`);
