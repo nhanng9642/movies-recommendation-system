@@ -13,6 +13,7 @@ export function TrendingMovies() {
   useEffect(() => {
     setLoading(true);
     const fetchData = async() => {
+      setLoading(true);
       const {data} = await getTrendingMovies(activeTab.value);
       setMovies(data.data)
       setLoading(false);

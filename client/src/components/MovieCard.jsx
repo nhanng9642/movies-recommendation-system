@@ -2,9 +2,9 @@ import React from "react";
 
 const MovieCard = ({ movie }) => {
   const { title, poster_path, release_date, overview } = movie;
-  const poster = `https://image.tmdb.org/t/p/w500${poster_path}`;
+  const poster = poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : 'movie.jpg';
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+    <div className="max-w-sm h-full rounded overflow-hidden shadow-lg bg-white">
       <img className="w-full " src={poster} alt={title} />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{title}</div>

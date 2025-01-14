@@ -7,7 +7,7 @@ export function MovieList( {movies, loading}) {
   return (
     <div className="mx-4 my-4">
         {loading && <Loading />}
-        {!loading && <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+        {!loading && <div className="grid grid-cols-2 h-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
             {movies.map((movie) => (
                 <div key={movie.id} className="m-[6px] group">
                     <Link to={`/movie/${movie._id}`}>
