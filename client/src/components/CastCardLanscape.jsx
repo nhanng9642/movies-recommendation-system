@@ -23,15 +23,15 @@ export const CastCardLanscape = ({ cast }) => {
       />
       
       <CardBody className="p-4 flex-1 flex flex-col justify-center">
-        <Typography variant="h6" className="text-gray-800 font-bold">
+        {character && <Typography variant="h6" className="text-gray-800 font-bold">
           {character}
-        </Typography>
-        <Typography variant="h6" className="text-gray-700">
+        </Typography>}
+        {name && <Typography variant="h6" className="text-gray-700">
           {name}
-        </Typography>
-        <Typography variant="h6" className="text-gray-500">
+        </Typography>}
+        {known_for_department && <Typography variant="h6" className="text-gray-500">
           {known_for_department}
-        </Typography>
+        </Typography>}
       </CardBody>
     </Link>
   </Card>

@@ -16,6 +16,7 @@ import VerifyEmail from "./pages/VerifyEmail.jsx";
 import { RecommendationMovieList } from "./pages/RecommendationMovieList.jsx";
 import { CastDetail } from "./pages/CastDetail.jsx";
 import CastList from "./pages/CastList.jsx";
+import CastListManyMovies from "./pages/CastListManyMovies.jsx";
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
                     </ProtectRoute>
                 }
           />
-        <Route path="/ai-search/movie/:id" element={<RecommendationMovieList />} />
+          <Route path="/ai-search/movie/:id" element={<RecommendationMovieList />} />
+          <Route path="/ai-search/cast/:id" element={<CastListManyMovies />} />
 
         </Route>
 

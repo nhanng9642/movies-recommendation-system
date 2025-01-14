@@ -65,6 +65,7 @@ export const ChatBox = () => {
     let text = `AI navigate for "${query}"`;
     let link = null;
     const route = response?.data?.route;
+    let data = null;
 
     if (route == "NONE" || response.status == 500){
       text = `Can't navigate for "${query}"`;
@@ -79,15 +80,22 @@ export const ChatBox = () => {
     } else if (route == "MOVIE_PAGE") {
       link = `/ai-search/movie/${uuid}`;
     } else if (route == "CAST_PAGE") {
+      data = response.data?.params?.movie_ids;
       link = `/ai-search/cast/${uuid}`;
     } else if (route == "GENRE_PAGE") {
-      link = `/ai-search/genre/${uuid}`;
+      data = response.data?.params;
+      console.log(data);
+      if (data == null) {
+        text = `Can't navigate for "${query}"`;
+        link = null;
+      }
+      link = `/search?genre=${data.genre_ids}`;
     }
 
     return {
       text,
       link,
-      data: response,
+      data,
       id: uuid,
     };;
   };
