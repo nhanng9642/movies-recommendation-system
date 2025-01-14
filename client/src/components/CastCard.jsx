@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const base_url = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2";
 const defaut_url = "https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg";
-export const Castcard = ({ cast }) => {
+export const Castcard = ({ cast}) => {
   const { character, name, profile_path, known_for_department } = cast;
   const poster = profile_path ? `${base_url}/${profile_path}` : defaut_url;
   

@@ -160,8 +160,11 @@ export default function MovieDetail() {
           className="flex items-center text-blue-600 hover:underline font-medium"
           onClick={() => {}} 
         >
-          <ArrowRightIcon width={40} height={40}/>
+          <Link to="cast">
+              <ArrowRightIcon width={40} height={40}/>
+          </Link>
         </button>
+        
       </div>
     </div>
     </>
