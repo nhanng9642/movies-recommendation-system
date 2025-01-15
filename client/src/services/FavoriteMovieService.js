@@ -7,7 +7,7 @@ export const changeFavoriteStatus = async (movieId) =>
   fetchDataWithToken(`${URL}`, "POST", {movieId});
 
 export const getStatusFavorite = async (movieId) =>
-  fetchDataWithToken(`${URL}/${movieId}`);
+  fetchDataWithToken(`${URL}/check/?movieId=${movieId}`);
 
-export const getFavoriteMovies = async (page) =>
+export const getFavoriteMovies = async (page = 1) =>
   fetchDataWithToken(`${URL}?page=${page}`);

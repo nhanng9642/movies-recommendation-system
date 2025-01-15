@@ -51,6 +51,7 @@ export default function MovieDetail() {
       }
     }
 
+    window.scrollTo(0, 0);
     fetchMovie();
     fetchSimilarMovies();
   }, [id]);

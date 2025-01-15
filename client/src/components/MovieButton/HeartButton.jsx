@@ -2,7 +2,7 @@
 import { HeartIcon } from "@heroicons/react/16/solid";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { changeFavoriteStatus, getFavoriteMovies } from "../../services/FavoriteMovieService";
+import { changeFavoriteStatus, getStatusFavorite } from "../../services/FavoriteMovieService";
 
 export function HeartButton( {movieId, handleOpen} ) {
 
@@ -11,11 +11,8 @@ export function HeartButton( {movieId, handleOpen} ) {
   
   useEffect(() => {
     const fetchAllFavoriteMovies = async () => {
-      const { data } = await getFavoriteMovies(1);
-      
-      const isLove = data?.movies.some((movie) => {
-        return movie.movieId._id === movieId});
-      setIsLove(isLove);
+      const { data } = await getStatusFavorite(movieId);
+      setIsLove(data);
     }
     if (user)
       fetchAllFavoriteMovies();

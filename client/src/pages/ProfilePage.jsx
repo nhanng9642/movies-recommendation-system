@@ -1,26 +1,18 @@
 import { Input, Typography } from "@material-tailwind/react";
 import { useAuth } from "../contexts/AuthContext";
+import UserInfo from "../components/profile/UserInfo";
+import { FavoriteList } from "../components/MovieList/FavoriteList";
 
 function ProfilePage() {
   const { user } = useAuth();
   
   return (
-    <div className="-m-6  w-[calc(100%+48px)] ">
-      <div className="mx-auto max-w-screen-md py-12">
-        <Typography variant="h2" color="blue-gray" className="mb-2">
-          USER PROFILE PAGE
-        </Typography>
-        <div color="gray" className="font-normal">
-          <Input className="mt-2" disabled value={`Id: ${user._id}`} />
-          <Input className="mt-4" disabled value={`Email: ${user.email}`} />
-          <Input
-            className="mt-6"
-            disabled
-            value={`CreatedAt: ${new Date(user.createdAt).toDateString()}`}
-          />
-        </div>
-      </div>
+    <div className="">
+      <UserInfo />
+
+      <FavoriteList />
     </div>
+    
   );
 }
 
