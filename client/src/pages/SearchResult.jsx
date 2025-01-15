@@ -50,7 +50,7 @@ function SearchResult() {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {isLoading && <Loading />}
-          {movies?.length === 0 && <p>No movies found</p>}
+          {!isLoading && movies?.length === 0 && <p>No movies found</p>}
           {!isLoading &&
             movies?.map((movie) =>
               <Link to={`/movie/${movie._id}`} key={movie._id}>
