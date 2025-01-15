@@ -6,11 +6,20 @@ import { addMovieToWatchList, getAllWatchList } from "../../services/WatchListSe
 import { Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import { AddWatchList } from "../AddWatchList";
 import toast from "react-hot-toast";
+import { useAuth } from "../../contexts/AuthContext";
 
-export function ListButton({movieId}) {
+export function ListButton({movieId, handleDialogOpen}) {
   const [watchList, setWatchList] = useState([]);
+  const { user } = useAuth();
+
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
+  const handleOpen = () => {
+    if (!user) {
+      handleDialogOpen(true);
+      return;
+    }
+    setOpen(!open)
+  };
 
   useEffect(() => {
     const fetchWatchList = async () => {
@@ -21,9 +30,9 @@ export function ListButton({movieId}) {
         console.error(error);
       }
     }
-    fetchWatchList();
-  }
-  ,[]);
+    if (user)
+      fetchWatchList();
+  }, [user]);
 
   const addToWatchList = async (listId) => { 
     toast.promise(
@@ -73,7 +82,13 @@ export function ListButton({movieId}) {
           
           <MenuItem
               className="flex items-center text-gray-600 hover:text-blue-600 font-medium"
-              onClick={() => setOpen(true)}>
+              onClick={() => {
+                if (!user) {
+                  handleDialogOpen(true);
+                  return;
+                }
+                setOpen(true)
+                }}>
                       <PlusIcon width={16} height={16}/>
                       <p className="ml-1">Create new watch List</p>
           </MenuItem>

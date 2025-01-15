@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/16/solid";
 import { getCurrentRatingMovie, postRatingMovie } from "../../services/RatingService";
+import { useAuth } from "../../contexts/AuthContext";
 
-export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRating }) => {
+export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRating, handleOpen }) => {
+  const { user } = useAuth();
 
   const [currentRating, setCurrentRating] = useState({ratingNumber, quantityRating});
 
@@ -11,6 +13,10 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
   const [hoverRating, setHoverRating] = useState(0);
 
   const handleRating = async (newRating) => {
+    if (!user) {
+      handleOpen(true);
+      return;
+    }
     setRating(newRating);
     const { data } = await postRatingMovie(movieId, newRating);
     setCurrentRating({ratingNumber: data.rating, quantityRating: data.ratingQuantity});
@@ -26,8 +32,9 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
       }
       
     }
-    fetchRating();
-  }, [movieId]);
+    if (user)
+      fetchRating();
+  }, [movieId, user]);
 
   return (
     <div className="flex flex-col ml-6">

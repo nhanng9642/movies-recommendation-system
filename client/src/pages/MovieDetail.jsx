@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {Link, useParams} from "react-router-dom";
 import { getMovieDetail} from "../services/MovieServices.js";
 import {CircularProgressBar} from "../components/CircleProgessBar.jsx";
-import {ListButton, HeartButton, BookmarkButton} from "../components/MovieButton"
+import {ListButton, HeartButton} from "../components/MovieButton"
 import Loading from "../components/Loading.jsx";
 import { Castcard } from "../components/CastCard.jsx";
 import { Typography } from "@material-tailwind/react";
@@ -35,7 +35,7 @@ export default function MovieDetail() {
         const { data } = await getMovieDetail(id);
         setMovie(data);
       } catch (error) {
-        console.err(error.message);
+        console.error(error.message);
         setError(error);
       }
     }
@@ -47,7 +47,7 @@ export default function MovieDetail() {
         setSimilarMovies(data.slice(0, 7));
         setLoading(false);
       } catch (error) {
-        console.err(error.message);
+        console.error(error.message);
         setErrorSimilar(error);
       }
     }
@@ -127,6 +127,7 @@ export default function MovieDetail() {
                 </div>
 
                 <RatingButton movieId={movie?._id} 
+                              handleOpen={handleOpen}
                               ratingNumber={movie?.rating}
                               quantityRating={movie?.ratingQuantity}/>
               </div>
@@ -134,13 +135,10 @@ export default function MovieDetail() {
             </div>
             <ul className="mb-[20px] w-full h-[68px] flex items-center justify-start list-none">
               <li className="py-[3px] mr-[20px]">
-                <ListButton movieId={movie._id}/>
+                <ListButton movieId={movie._id} handleDialogOpen={handleOpen}/>
               </li>
               <li className="py-[3px] mr-[20px]">
                 <HeartButton handleOpen={handleOpen} movieId={movie._id}/>
-              </li>
-              <li className="py-[3px] mr-[20px]">
-                <BookmarkButton/>
               </li>
             </ul>
           </div>
@@ -165,25 +163,32 @@ export default function MovieDetail() {
 
     </div>
 
-    <div className="mt-2 ml-4">
-      <Typography variant="h4" className="text-gray-800 font-bold">
-        Top Actor 
-      </Typography>
+    <div className="mt-2 mx-4">
+      <div className="flex justify-between items-center">
+        <Typography variant="h4" className="text-gray-800 font-bold">
+          Top Actor 
+        </Typography>
+
+        <Link to="cast">
+          <button 
+              className="text-gray-600 hover:text-blue-600 font-medium"
+              onClick={() => {}} 
+              >
+                  <ArrowRightIcon width={40} height={40}/>
+          </button>
+        </Link>
+      </div>
       <div className="flex flex-wrap mt-1 gap-4 justify-center items-center">
         {topActorList?.map((cast) => (
           <div className="w-1/6 p-2" key={cast.id}>
             <Castcard cast={cast} />
           </div>
         ))}
-        <Link to="cast">
-          <button 
-              className="text-gray-600 hover:text-blue-600 font-medium"
-              onClick={() => {}} 
-          >
-                  <ArrowRightIcon width={40} height={40}/>
-          </button>
-        </Link>
-        
+
+        {
+          !loading && topActorList?.length === 0 && 
+          <Typography variant="h5" className="mt-2 px-4">No Actor found</Typography>
+        }
       </div>
     </div>
 

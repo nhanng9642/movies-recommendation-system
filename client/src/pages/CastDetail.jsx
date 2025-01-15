@@ -19,7 +19,7 @@ export function CastDetail() {
         setCast(data);
       }
       catch (error) {
-        console.err(error.message);
+        console.error(error.message);
         setError(error);
       }
     };

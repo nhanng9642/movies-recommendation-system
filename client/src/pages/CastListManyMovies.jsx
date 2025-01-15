@@ -24,7 +24,7 @@ export default function CastListManyMovies() {
         
 
       } catch (error) {
-        console.err(error.message);
+        console.error(error.message);
         setError(error);
       }
     }
