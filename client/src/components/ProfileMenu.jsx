@@ -8,8 +8,6 @@ import {
 } from "@material-tailwind/react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { sendVerifyEmail } from "../services/AuthService";
 
 export function ProfileMenu() {
 	const {user, dispatch} = useAuth();
@@ -21,19 +19,6 @@ export function ProfileMenu() {
     navigate("/login");
   };
   
-  const verifyEmail = async () => {
-    toast.promise(
-        sendVerifyEmail(user.email),
-        {
-            loading: 'Send verify email...',
-            success: (data) => {
-                return data.message;
-            },
-            error: err => err.message
-        }
-    )
-  }
-
 	return (
 		<div>
       <Menu placement="bottom-start">
@@ -52,15 +37,6 @@ export function ProfileMenu() {
               className="flex items-center gap-2">
                 My profile
             </MenuItem>
-
-          { 
-          !user.isVerified && <MenuItem className="flex items-center gap-2"
-            onClick={verifyEmail}>
-            <Typography variant="small" className="font-medium">
-              Verify email
-            </Typography>
-          </MenuItem>
-          }
           
           <hr className="my-2 border-blue-gray-50" />
 
