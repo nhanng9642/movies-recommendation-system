@@ -36,12 +36,19 @@ export function FavoriteList() {
               className="flex items-center text-gray-600 hover:text-blue-600 font-medium"
               onClick={() => {}} 
           >
-                  <ArrowRightIcon width={32} height={32}/>
+            <ArrowRightIcon width={32} height={32}/>
           </button>
         </Link>
       </div>
       
+      {movies?.length === 0 && !loading && <div className="mt-4">
+        Your favorites list is currently empty.
+        <Link to="/" className="ml-2 hover:text-blue-600 hover:underline font-normal">
+          Start adding movies you love!
+        </Link>
+      </div>}
       <MovieList movies={movies} loading={loading}/>
+
     </div>
   );
 }

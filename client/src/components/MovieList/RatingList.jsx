@@ -39,7 +39,13 @@ export function RatingList() {
           </button>
         </Link>
       </div>
-      
+
+      {movies?.length === 0 && !loading && <div className="mt-4">
+        Your rating list is currently empty.
+        <Link to="/" className="ml-2 hover:text-blue-600 hover:underline font-normal">
+          Start rating movies!
+        </Link>
+      </div>}
       <MovieList movies={movies} loading={loading}/>
     </div>
   );

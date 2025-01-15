@@ -24,7 +24,8 @@ function VerifyEmail() {
           },
           success: (res) => {
             setIsLoading(false);
-            dispatch( "UPDATE_USER", { user: { ...user, isVerified: true } });
+            const newUser = { ...user, isVerified: true };
+            dispatch( { type: "UPDATE_USER", payload: { user: newUser} });
             navigate('/')
             return res.message
           },

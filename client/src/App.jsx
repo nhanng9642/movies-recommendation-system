@@ -91,9 +91,7 @@ function App() {
         <Route
           path="/verify-account"
           element={
-            <ProtectRoute>
               <VerifyEmail />
-            </ProtectRoute>
           }
         />
 

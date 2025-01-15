@@ -48,6 +48,8 @@ export function WatchingList() {
         )
       }
 
+      {watchingList?.length === 0 && <div className="mt-4"> Your watching list is currently empty. </div>}
+
       <AddWatchList handleOpen={handleOpen} open={open} add={addWatchList}/>
     </div>
   );
