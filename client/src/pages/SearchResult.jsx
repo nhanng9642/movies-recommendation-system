@@ -22,7 +22,7 @@ function SearchResult() {
         newParams.set("page", page);
         return newParams;
     });
-}
+  }
 
   useEffect(() => {
     const queryParams = Object.fromEntries(params.entries());
@@ -59,11 +59,12 @@ function SearchResult() {
             )
           }
         </div>
-          <CircularPagination 
-              totalPage={totalPages}
-              currentPage={currentPage}
-              setCurrentPage={updatePage}
-          />
+
+        <CircularPagination 
+            totalPage={totalPages}
+            currentPage={currentPage}
+            setCurrentPage={updatePage}
+        />
       </div>
     </div>
   );

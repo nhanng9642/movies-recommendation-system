@@ -142,20 +142,6 @@ export default function MovieDetail() {
               <li className="py-[3px] mr-[20px]">
                 <BookmarkButton/>
               </li>
-              <li className="flex items-center ml-1">
-                <div className="flex h-[24px] hover:text-white font-semibold cursor-pointer">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                  <span>Play Trailer</span>
-                </div>
-              </li>
             </ul>
           </div>
           <div>
@@ -183,20 +169,20 @@ export default function MovieDetail() {
       <Typography variant="h4" className="text-gray-800 font-bold">
         Top Actor 
       </Typography>
-      <div className="flex flex-wrap mt-1 gap-4 justify-center">
+      <div className="flex flex-wrap mt-1 gap-4 justify-center items-center">
         {topActorList?.map((cast) => (
           <div className="w-1/6 p-2" key={cast.id}>
             <Castcard cast={cast} />
           </div>
         ))}
-        <button 
-          className="flex items-center text-blue-600 hover:underline font-medium"
-          onClick={() => {}} 
-        >
-          <Link to="cast">
-              <ArrowRightIcon width={40} height={40}/>
-          </Link>
-        </button>
+        <Link to="cast">
+          <button 
+              className="text-gray-600 hover:text-blue-600 font-medium"
+              onClick={() => {}} 
+          >
+                  <ArrowRightIcon width={40} height={40}/>
+          </button>
+        </Link>
         
       </div>
     </div>

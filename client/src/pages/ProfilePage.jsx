@@ -1,16 +1,13 @@
-import { Input, Typography } from "@material-tailwind/react";
-import { useAuth } from "../contexts/AuthContext";
-import UserInfo from "../components/profile/UserInfo";
 import { FavoriteList } from "../components/MovieList/FavoriteList";
+import { RatingList } from "../components/MovieList/RatingList";
+import { WatchingList } from "../components/MovieList/WatchingList";
 
 function ProfilePage() {
-  const { user } = useAuth();
-  
   return (
     <div className="">
-      <UserInfo />
-
       <FavoriteList />
+      <RatingList />
+      <WatchingList />
     </div>
     
   );

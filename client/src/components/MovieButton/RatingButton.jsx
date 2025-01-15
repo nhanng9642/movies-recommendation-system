@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/16/solid";
-import { postRatingMovie } from "../../services/RatingService";
+import { getCurrentRatingMovie, postRatingMovie } from "../../services/RatingService";
 
 export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRating }) => {
 
@@ -15,6 +15,19 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
     const { data } = await postRatingMovie(movieId, newRating);
     setCurrentRating({ratingNumber: data.rating, quantityRating: data.ratingQuantity});
   };
+
+  useEffect(() => {
+    const fetchRating = async () => {
+      try {
+        const { data } = await getCurrentRatingMovie(movieId);
+        setRating(data.rating);
+      } catch (error) {
+        setRating(0);
+      }
+      
+    }
+    fetchRating();
+  }, [movieId]);
 
   return (
     <div className="flex flex-col ml-6">

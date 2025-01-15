@@ -5,7 +5,7 @@ import { getFavoriteMovies } from "../../services/FavoriteMovieService";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/16/solid";
 
-export function FavoriteList() {
+export function RatingList() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,8 +30,8 @@ export function FavoriteList() {
   return (
     <div className="mx-4 my-4">
       <div className="flex">
-        <p className="text-2xl font-bold mr-4">My Favorites</p>
-        <Link to="/profile/favorite-movie">
+        <p className="text-2xl font-bold mr-4">My Ratings</p>
+        <Link to="/profile/rating-movie">
           <button 
               className="flex items-center text-gray-600 hover:text-blue-600 font-medium"
               onClick={() => {}} 
