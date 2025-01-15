@@ -18,10 +18,9 @@ export function AddWatchList({handleOpen, open, add}) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const watchList = await createNewWatchList(data);
     if (add && watchList) 
-      add(watchList);
+      add(watchList.data);
     handleOpen();
   }
 

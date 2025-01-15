@@ -16,7 +16,7 @@ export default function CastList() {
         const { data } = await getMovieDetail(id);
         setMovie(data);
       } catch (error) {
-        console.log(error.message);
+        console.err(error.message);
         setError(error);
       }
     }

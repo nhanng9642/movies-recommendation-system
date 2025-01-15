@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { sendVerifyEmail } from "../services/AuthService";
 
@@ -47,30 +47,23 @@ export function ProfileMenu() {
         </MenuHandler>
         
         <MenuList>
-          <Link variant="small" className="font-medium" to="/profile">
-            <MenuItem className="flex items-center gap-2">
-                {user.name}
+            <MenuItem 
+              onClick={() => navigate(`/profile`)}
+              className="flex items-center gap-2">
+                My profile
             </MenuItem>
-          </Link>
 
-          { !user.isVerified && <MenuItem className="flex items-center gap-2"
-            onClick={verifyEmail}	
-          >
+          { 
+          !user.isVerified && <MenuItem className="flex items-center gap-2"
+            onClick={verifyEmail}>
             <Typography variant="small" className="font-medium">
               Verify email
             </Typography>
-          </MenuItem>}
-
-          
-          <MenuItem className="flex items-center gap-2"	
-          >
-        
-            <Typography variant="small" className="font-medium">
-              Change password	
-            </Typography>
           </MenuItem>
+          }
           
           <hr className="my-2 border-blue-gray-50" />
+
           <MenuItem className="flex items-center gap-2"
             onClick={handleLogOut}
           >

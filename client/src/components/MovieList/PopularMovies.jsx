@@ -15,7 +15,6 @@ export function PopularMovies() {
         setLoading(false);
       }
       fetchData();
-      
   }, []);
 
   return (

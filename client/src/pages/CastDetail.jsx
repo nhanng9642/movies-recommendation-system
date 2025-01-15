@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getCastDetail} from "../services/MovieServices.js";
 import { Typography } from "@material-tailwind/react";
 import Loading from "../components/Loading.jsx";
@@ -11,7 +11,6 @@ export function CastDetail() {
   const { id } = useParams();
   const [cast, setCast] = useState(null);
   const [error, setError] = useState(null);
-  console.log(cast);
   
   useEffect(() => {
     const fetchCast = async () => {
@@ -20,7 +19,7 @@ export function CastDetail() {
         setCast(data);
       }
       catch (error) {
-        console.log(error.message);
+        console.err(error.message);
         setError(error);
       }
     };

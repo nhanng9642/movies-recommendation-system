@@ -16,7 +16,7 @@ export function TrailerList( {trailers, loading}) {
                   src={`https://www.youtube.com/embed/${trailer.key}`}
                   title={trailer.name || "Trailer"}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  className="group-hover:scale-105 transition-transform duration-300 rounded-lg object-cover h-full"
+                  className="w-full group-hover:scale-105 transition-transform duration-300 rounded-lg object-cover"
                 />
               </div>
             </div>

@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import {Link, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { getCreditFromMovieList} from "../services/MovieServices.js";
-import Loading from "../components/Loading.jsx";
 import { Typography } from "@material-tailwind/react";
 import { CastCardLanscape } from "../components/CastCardLanscape.jsx";
-import { set } from "react-hook-form";
 
 export default function CastListManyMovies() {
   const { id } = useParams();
@@ -26,7 +24,7 @@ export default function CastListManyMovies() {
         
 
       } catch (error) {
-        console.log(error.message);
+        console.err(error.message);
         setError(error);
       }
     }

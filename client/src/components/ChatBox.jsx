@@ -60,7 +60,6 @@ export const ChatBox = () => {
   const handleGetNavigation = async (query) => {
     const uuid = Math.random().toString(36).substring(2);
     const response = await getNavigation(query);
-    console.log(response);
     
     let text = `AI navigate for "${query}"`;
     let link = null;
@@ -84,7 +83,6 @@ export const ChatBox = () => {
       link = `/ai-search/cast/${uuid}`;
     } else if (route == "GENRE_PAGE") {
       data = response.data?.params;
-      console.log(data);
       if (data == null) {
         text = `Can't navigate for "${query}"`;
         link = null;

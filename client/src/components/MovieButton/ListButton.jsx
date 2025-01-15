@@ -48,6 +48,10 @@ export function ListButton({movieId}) {
     });
   }
 
+  const addNewWatchList = (watchList) => {
+    setWatchList(list => [...list, watchList]);
+  }
+
   return (
     <>
       <Menu>  
@@ -77,7 +81,7 @@ export function ListButton({movieId}) {
         </MenuList>
       </Menu>
 
-      <AddWatchList handleOpen={handleOpen} open={open}/>
+      <AddWatchList handleOpen={handleOpen} open={open} add={addNewWatchList}/>
     </>
 
   );

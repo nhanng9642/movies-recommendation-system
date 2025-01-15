@@ -5,14 +5,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export function Banner() {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [query, setQuery] = useState(searchParams.get("query") || "");
+  const [query, setQuery] = useState(searchParams.get("q") || "");
   function handleSubmit() {
     if (query) {
-      navigate(`/search?query=${query}`);
+      navigate(`/search?q=${query}`);
     }
   }
   useEffect(() => {
-    setQuery(searchParams.get("query") || "");
+    setQuery(searchParams.get("q") || "");
   }, [searchParams]);
   return (
     <div className="h-[400px] w-full relative">

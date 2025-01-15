@@ -35,7 +35,7 @@ export default function MovieDetail() {
         const { data } = await getMovieDetail(id);
         setMovie(data);
       } catch (error) {
-        console.log(error.message);
+        console.err(error.message);
         setError(error);
       }
     }
@@ -47,7 +47,7 @@ export default function MovieDetail() {
         setSimilarMovies(data.slice(0, 7));
         setLoading(false);
       } catch (error) {
-        console.log(error.message);
+        console.err(error.message);
         setErrorSimilar(error);
       }
     }

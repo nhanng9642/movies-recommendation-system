@@ -13,7 +13,6 @@ export function WatchingList() {
   useEffect(() => {
     const fetchWatchList = async () => {
       const response = await getAllWatchList()
-      console.log(response.data);
       setWatchingList(response.data);
     };
 
@@ -25,7 +24,7 @@ export function WatchingList() {
   }
 
   return (
-    <div className="mx-4 my-4">
+    <div className="mx-6 my-4">
       <div className="flex justify-between">
         <p className="text-2xl font-bold mr-4">My Watching List</p>
         <button 
@@ -36,15 +35,17 @@ export function WatchingList() {
       </div>
 
       {
-        watchingList.map((watchList) => (
-          <Link key={watchList._id} 
+        watchingList.map((watchList) => {
+          const length = watchList?.movies?.length || 0;
+          return (<Link key={watchList._id} 
               className="hover:text-blue-600"
               to={`/profile/watch-list/${watchList._id}`}>
             <div className="flex justify-between my-4">
-              <p className="text-lg font-medium">{watchList.name} ({watchList.movies.length > 1 ? `${watchList.movies.length} movies` : `${watchList.movies.length} movie`})</p>
+              <p className="text-lg font-medium">{watchList.name} ({length > 1 ? `${length} movies` : `${length} movie`})</p>
             </div>
-          </Link>
-        ))
+          </Link>)
+          }
+        )
       }
 
       <AddWatchList handleOpen={handleOpen} open={open} add={addWatchList}/>

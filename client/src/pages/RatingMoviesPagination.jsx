@@ -22,7 +22,6 @@ export function RatingMoviesPagination() {
     });
   }
 
-  console.log('totalPages', totalPages);
   const page = +params.get("page") || 1;
   useEffect(() => {
     async function fetchMovies() {

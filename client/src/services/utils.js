@@ -83,6 +83,5 @@ export const convertQuery = (query) => {
     queryString += `&release_date[lte]=${release_date_to}`;
   }
 
-  console.log(queryString);
   return queryString;
 }

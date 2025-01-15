@@ -8,7 +8,6 @@ function Login() {
   const [param] = useSearchParams();
   
   const redirect = param.get("redirect");
-  console.log(redirect);
   const navigate = useNavigate();
 
   const {
