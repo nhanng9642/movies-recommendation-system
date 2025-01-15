@@ -19,7 +19,7 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
     }
     setRating(newRating);
     const { data } = await postRatingMovie(movieId, newRating);
-    setCurrentRating({ratingNumber: data.rating, quantityRating: data.ratingQuantity});
+    setCurrentRating({ratingNumber: parseFloat(data.rating.toFixed(1)) || 0, quantityRating: data.ratingQuantity});
   };
 
   useEffect(() => {
