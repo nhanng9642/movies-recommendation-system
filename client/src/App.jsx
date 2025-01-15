@@ -20,6 +20,7 @@ import CastListManyMovies from "./pages/CastListManyMovies.jsx";
 import { UserProfileLayout } from "./pages/layout/UserProfileLayout.jsx";
 import { FavoritePagnation } from "./pages/FavoritePagination.jsx";
 import { RatingMoviesPagination } from "./pages/RatingMoviesPagination.jsx";
+import { WatchListDetail } from "./pages/WatchListDetail.jsx";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route index element={<ProfilePage />} />
             <Route path="/profile/favorite-movie" element={<FavoritePagnation />} />
             <Route path="/profile/rating-movie" element={<RatingMoviesPagination />} />
+            <Route path="/profile/watch-list/:id" element={<WatchListDetail />} />
           </Route>
           <Route path="/ai-search/movie/:id" element={<RecommendationMovieList />} />
           <Route path="/ai-search/cast/:id" element={<CastListManyMovies />} />

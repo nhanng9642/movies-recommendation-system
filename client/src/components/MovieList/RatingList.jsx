@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { MovieList } from "./MovieList";
-import { getFavoriteMovies } from "../../services/FavoriteMovieService";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/16/solid";
+import { getAllRatingMovie } from "../../services/RatingService";
 
 export function RatingList() {
   const [movies, setMovies] = useState([]);
@@ -12,8 +12,8 @@ export function RatingList() {
   useEffect(() => {
       setLoading(true);
       const fetchData = async() => {
-        const {data} = await getFavoriteMovies();
-        const moviesData = data.movies.map((movie) => {
+        const {data} = await getAllRatingMovie();
+        const moviesData = data.result.map((movie) => {
           return {
             ...movie.movieId,
             isFavorite: true,
@@ -24,12 +24,11 @@ export function RatingList() {
         setLoading(false);
       }
       fetchData();
-      
   }, []);
 
   return (
-    <div className="mx-4 my-4">
-      <div className="flex">
+    <div className="mx-6 my-4">
+      <div className="flex justify-between">
         <p className="text-2xl font-bold mr-4">My Ratings</p>
         <Link to="/profile/rating-movie">
           <button 

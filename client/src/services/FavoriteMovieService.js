@@ -9,5 +9,5 @@ export const changeFavoriteStatus = async (movieId) =>
 export const getStatusFavorite = async (movieId) =>
   fetchDataWithToken(`${URL}/check/?movieId=${movieId}`);
 
-export const getFavoriteMovies = async (page = 1) =>
-  fetchDataWithToken(`${URL}?page=${page}`);
+export const getFavoriteMovies = async (page = 1, limit = 7) =>
+  fetchDataWithToken(`${URL}?page=${page}&limit=${limit}`);

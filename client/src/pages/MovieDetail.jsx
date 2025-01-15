@@ -134,7 +134,7 @@ export default function MovieDetail() {
             </div>
             <ul className="mb-[20px] w-full h-[68px] flex items-center justify-start list-none">
               <li className="py-[3px] mr-[20px]">
-                <ListButton/>
+                <ListButton movieId={movie._id}/>
               </li>
               <li className="py-[3px] mr-[20px]">
                 <HeartButton handleOpen={handleOpen} movieId={movie._id}/>

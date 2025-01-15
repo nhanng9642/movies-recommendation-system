@@ -23,8 +23,8 @@ export function FavoritePagnation() {
     });
   }
 
-  console.log(movies);
   const page = +params.get("page") || 1;
+
   useEffect(() => {
     async function fetchMovies() {
       setIsLoading(true);

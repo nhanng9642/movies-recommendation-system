@@ -29,7 +29,7 @@ export function FavoriteList() {
 
   return (
     <div className="mx-4 my-4">
-      <div className="flex">
+      <div className="flex justify-between">
         <p className="text-2xl font-bold mr-4">My Favorites</p>
         <Link to="/profile/favorite-movie">
           <button 
