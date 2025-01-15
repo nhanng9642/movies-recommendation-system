@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCastDetail} from "../services/MovieServices.js";
+import { getCastDetail, getCastMovies } from "../services/MovieServices.js";
 import { Typography } from "@material-tailwind/react";
 import Loading from "../components/Loading.jsx";
+import { MovieList } from "../components/MovieList/MovieList.jsx";
 
 const base_url = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2";
 const defaultCastImage = import.meta.env.VITE_DEFAULT_ACTOR_IMAGE;
@@ -11,7 +12,26 @@ export function CastDetail() {
   const { id } = useParams();
   const [cast, setCast] = useState(null);
   const [error, setError] = useState(null);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
   
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        const { data } = await getCastMovies(id);
+        setMovies(data);
+        setLoading(false);
+      }
+      catch (error) {
+        console.error(error.message);
+        setError(error);
+      }
+    };
+
+    fetchMovies();
+  }, [id]);
+
   useEffect(() => {
     const fetchCast = async () => {
       try {
@@ -61,6 +81,14 @@ export function CastDetail() {
           </div>
         </div>
       </div>
+
+      <p className="text-2xl font-bold px-6">Acting List</p>
+      {
+        movies?.length === 0 && !loading && <div className="mt-4 px-6">
+            No movies found.
+        </div>
+      }
+      <MovieList movies={movies} loading={loading} />
 
     </div>
     </>

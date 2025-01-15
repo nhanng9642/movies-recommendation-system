@@ -27,3 +27,5 @@ export const getCreditsFromMovieId = async (movieId) => fetchData(`${movieUrl}/$
 export const getCastDetail = async (castId) => fetchData(`${API_URL}/casts/${castId}`);
 
 export const getCreditFromMovieList = async (movieList) => fetchData(`${movieUrl}/list-movies/cast`, "POST", movieList);
+
+export const getCastMovies = async (castId, limit = 7) => fetchData(`${API_URL}/casts/${castId}/movies?limit=${limit}`);

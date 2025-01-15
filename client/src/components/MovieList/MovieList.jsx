@@ -11,8 +11,8 @@ export function MovieList({movies, loading}) {
     <div className="mx-4 my-2 flex justify-center">
         {loading && <Loading />}
         {!loading && <div className="grid grid-cols-2 h-full sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
-            {movies?.map((movie) => (
-                <div key={movie.id} className="m-[6px] group">
+            {movies?.map((movie, index) => (
+                <div key={`${movie.id}${index}`} className="m-[6px] group">
                     <Link to={`/movie/${movie._id}`}>
                         <div className="relative rounded-lg border border-gray-300">
                             <div className="aspect-w-2 aspect-h-3">
