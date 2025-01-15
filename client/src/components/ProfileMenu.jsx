@@ -47,11 +47,11 @@ export function ProfileMenu() {
         </MenuHandler>
         
         <MenuList>
-          <MenuItem className="flex items-center gap-2">
-            <Link variant="small" className="font-medium" to="/profile">
-              {user.name}
-            </Link>
-          </MenuItem>
+          <Link variant="small" className="font-medium" to="/profile">
+            <MenuItem className="flex items-center gap-2">
+                {user.name}
+            </MenuItem>
+          </Link>
 
           { !user.isVerified && <MenuItem className="flex items-center gap-2"
             onClick={verifyEmail}	

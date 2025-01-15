@@ -11,6 +11,7 @@ import { MovieList } from "../components/MovieList/MovieList.jsx";
 import { getSimilarMovies } from "../services/RecommendationService.js";
 import { Comment } from "../components/Comment.jsx";
 import { NotificationRequestLogin } from "../components/NotificationRequestLogin.jsx";
+import { RatingButton } from "../components/MovieButton/RatingButton.jsx";
 
 const defaultMovieImage = import.meta.env.VITE_DEFAULT_IMAGE || "/movies-recommendation-system/movie.jpg";
 
@@ -124,6 +125,10 @@ export default function MovieDetail() {
                 <div className="text font-bold ml-1">
                   User <br/> Score
                 </div>
+
+                <RatingButton movieId={movie?._id} 
+                              ratingNumber={movie?.rating}
+                              quantityRating={movie?.ratingQuantity}/>
               </div>
 
             </div>
