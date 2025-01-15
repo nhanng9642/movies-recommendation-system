@@ -19,7 +19,7 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
     }
     setRating(newRating);
     const { data } = await postRatingMovie(movieId, newRating);
-    setCurrentRating({ratingNumber: parseFloat(data.rating.toFixed(1)) || 0, quantityRating: data.ratingQuantity});
+    setCurrentRating({ratingNumber: data.rating, quantityRating: data.ratingQuantity});
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const RatingButton = ({ totalStars = 5, movieId, ratingNumber, quantityRa
     <div className="flex flex-col ml-6">
       <p >
         <span className="font-bold ml-2 text-lg"> Rating </span>
-        <span>({currentRating.ratingNumber}★ / {currentRating.quantityRating} {currentRating.quantityRating > 1 ? "votes" : "vote"})</span>
+        <span>({parseFloat(currentRating.ratingNumber).toFixed(1)}★ / {currentRating.quantityRating} {currentRating.quantityRating > 1 ? "votes" : "vote"})</span>
       </p>
       <div className="flex space-x-1">
         {[...Array(totalStars)].map((_, index) => {
